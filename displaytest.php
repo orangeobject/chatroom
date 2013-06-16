@@ -44,15 +44,13 @@ setcookie("nick",$_POST['nick']); //use cookie to store user nickname
 		if (request.readyState == 4) {
 			getdisplay;
 		}
-		//code
-		
 	}
 	
 	function getdisplay(){
 		request.open("GET","./display.php",true);
 		request.onreadystatechange = updatePage;
 		request.send(null);
-			}
+	}
 	
 	function getId(){
 		msg=document.getElementById("1234").value;
@@ -65,20 +63,26 @@ setcookie("nick",$_POST['nick']); //use cookie to store user nickname
 		}
 	}
 </script>
+
+<style type=text/css>
+	body {margin:120px;background-color: #555;color:#ddd;}
+	#menu {text-align:right;background-color: #ddd;}
+	.words {background-color:#333;padding: 10px;}
+	.stamp {text-align: right;margin-bottom:20px; font-size:7px;}
+
+</style>
+
 </head>
-<body onLoad="setInterval(getdisplay,5000);"> 
-<?PHP
-echo $_COOKIE['nick'];
-?>
-さんいらっしゃい
+<body onLoad="setInterval(getdisplay,5000);">
+	<p id=menu><a href=./>ログアウト</a></p>
+<?PHP echo $_COOKIE['nick']; ?> さんいらっしゃい
 <form onSubmit="getspeak();return false;">
 	<input Id="1234">
 </form>
 	<button onClick="getspeak();getdisplay();">say</botton>
 	<button onClick="getdisplay();" >get</button>
 		
-<DIV ID="1123">
-</DIV>
+<DIV ID="1123"> </DIV>
 
 </body> 
 </html>
