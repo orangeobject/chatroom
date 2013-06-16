@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?PHP
+setcookie("nick",$_POST['nick']); //use cookie to store user nickname
+?>
+<!DOCTYPE html>	
 <html lang="ja" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -64,12 +67,18 @@
 </script>
 </head>
 <body onLoad="setInterval(getdisplay,5000);"> 
-	
+<?PHP
+echo $_COOKIE['nick'];
+?>
+さんいらっしゃい
+<form onSubmit="getspeak();return false;">
 	<input Id="1234">
+</form>
 	<button onClick="getspeak();getdisplay();">say</botton>
 	<button onClick="getdisplay();" >get</button>
 		
 <DIV ID="1123">
 </DIV>
+
 </body> 
 </html>
