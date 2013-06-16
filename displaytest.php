@@ -30,11 +30,27 @@
 		nick  = GetCookie("nick");
 		
 		request.open("GET","./speaking.php?words=" + words + "&nick=" + nick,true);
+		request.onreadystatechange = RefreshPage;
 		request.send(null);
 		// 入力文字の初期化
 		document.getElementById("1234").value = "";
 		
 	}
+	
+	function RefreshPage() {
+		if (request.readyState == 4) {
+			getdisplay;
+		}
+		//code
+		
+	}
+	
+	function getdisplay(){
+		request.open("GET","./display.php",true);
+		request.onreadystatechange = updatePage;
+		request.send(null);
+			}
+	
 	function getId(){
 		msg=document.getElementById("1234").value;
 		alert(document.cookie);
@@ -47,33 +63,13 @@
 	}
 </script>
 </head>
-<body> 
+<body onLoad="setInterval(getdisplay,5000);"> 
+	
 	<input Id="1234">
-	<button onClick="getId();"></button>
-	<button onClick="getspeak();">say</botton>
-	<button onClick="getdisplaytest();" >get</button>
-	<form action="speak.php" method="post" target="_self">
-	<input type="button" onclick="location.href='http://10.17.23.222/mylog'"value="datebase" target="_self">
-<?php 
-//connect to mysql server, server name: main, database username: root 
-$link_ID=mysql_connect('localhost',"root","116center"); 
-mysql_select_db("chat"); //abc is the database name 
-$str="select * from chat ORDER BY chtime DESC;" ;
-$result=mysql_query($str, $link_ID);
-$rows=mysql_num_rows($result); 
-//get the latest 15 messages 
-@mysql_data_seek($resut,$rows-15); 
-//if the number of messages<15, get all of the messages 
-if ($rows<15) $l=$rows; else $l=15; for ($i=1;$i<=$l; $i++) { 
-list($chtime, $nick, $words)=mysql_fetch_row($result); 
- echo " "; echo $nick; echo":" ; echo $words; echo $chtime; echo"<br> 
-"; 
-} //delete the old messages(only keep the newest 20 only) 
-@mysql_data_seek($result,$rows-20);
-list($limtime)=mysql_fetch_row($result); 
-$str="DELETE FROM chat WHERE chtime<'$limtime' ;" ; 
-$result=mysql_query($str,$link_ID);
-mysql_close($link_ID); 
-?> 
+	<button onClick="getspeak();getdisplay();">say</botton>
+	<button onClick="getdisplay();" >get</button>
+		
+<DIV ID="1123">
+</DIV>
 </body> 
 </html>
